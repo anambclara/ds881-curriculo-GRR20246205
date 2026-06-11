@@ -1,4 +1,4 @@
-GEM
+﻿GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.9.0)
@@ -248,3 +248,4 @@ CHECKSUMS
 
 BUNDLED WITH
   4.0.14
+
