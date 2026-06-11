@@ -1,18 +1,4 @@
-﻿title: Curriculo - Ana Clara Martins Batista
-email: anaclaramartinsbatista2006@gmail.com
-description: Curriculo profissional e portfolio de Ana Clara Martins Batista.
-baseurl: "/ds881-curriculo-GRR20246205"
-url: "https://anambclara.github.io/"
-github_username: anambclara
-
-source: src
-destination: _site
-
-theme: minima
-plugins:
-  
-jekyll-feed
-name: CI/CD
+﻿name: CI/CD Pipeline
 
 on:
   push:
@@ -27,13 +13,13 @@ permissions:
   contents: read
 
 jobs:
-  lint-and-build:
+  lint_and_build:
     runs-on: ubuntu-latest
 
     steps:
       
-name: Checkout
-      uses: actions/checkout@v6
+name: Checkout do codigo
+      uses: actions/checkout@v4
 
       
 name: Setup Ruby
@@ -43,20 +29,20 @@ name: Setup Ruby
         bundler-cache: true
 
       
-name: Static analysis
+name: Analise estatica
       run: bundle exec jekyll doctor
 
       
-name: Configure GitHub Pages
+name: Configurar GitHub Pages
       if: github.event_name == 'push'
       uses: actions/configure-pages@v5
 
       
-name: Build site
+name: Build do site
       run: bundle exec jekyll build --trace
 
       
-name: Upload GitHub Pages artifact
+name: Enviar artefato do GitHub Pages
       if: github.event_name == 'push'
       uses: actions/upload-pages-artifact@v4
       with:
@@ -64,7 +50,7 @@ name: Upload GitHub Pages artifact
 
   deploy:
     if: github.event_name == 'push'
-    needs: lint-and-build
+    needs: lint_and_build
     runs-on: ubuntu-latest
 
     permissions:
@@ -77,6 +63,6 @@ name: Upload GitHub Pages artifact
 
     steps:
       
-name: Deploy to GitHub Pages
+name: Publicar no GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v4
