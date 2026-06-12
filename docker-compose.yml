@@ -1,10 +1,23 @@
 services:
   site:
-    build: .
-  
+    build:
+      context: .
+      dockerfile: Dockerfile
+    init: true
     ports:
       - "8080:8080"
-   
+      - "35729:35729"
     volumes:
       - .:/srv/jekyll
-    command: jekyll serve --host 0.0.0.0 --port 8080 --livereload --force_polling
+      - node_modules:/srv/jekyll/node_modules
+    command: >-
+      bundle exec jekyll serve
+      --host 0.0.0.0
+      --port 8080
+      --baseurl ""
+      --livereload
+      --livereload-port 35729
+      --force_polling
+
+volumes:
+  node_modules:
