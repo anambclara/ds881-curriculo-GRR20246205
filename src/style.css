@@ -1,4 +1,4 @@
-* {
+﻿* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -45,16 +45,6 @@ h1 {
     font-size: 0.95rem;
 }
 
-.contact-info a {
-    color: #2d3748;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.contact-info a:hover {
-    color: #2b6cb0;
-}
-
 section {
     margin-bottom: 40px;
 }
@@ -73,14 +63,7 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
     margin-bottom: 20px;
-    border-left: 3px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.job:hover, .project:hover, .education:hover {
-    border-left-color: #2b6cb0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-    transform: translateX(4px);
+    border-left: 3px solid #2b6cb0;
 }
 
 .job-header, .project-header {
@@ -129,14 +112,6 @@ li {
     font-size: 0.95rem;
     font-weight: 500;
     border: 1px solid #e2e8f0;
-    transition: all 0.3s ease;
-}
-
-.skills-grid li:hover {
-    background-color: #2b6cb0;
-    color: white;
-    border-color: #2b6cb0;
-    transform: translateY(-2px);
 }
 
 @media (max-width: 600px) {
@@ -148,3 +123,4 @@ li {
         margin-top: 5px;
     }
 }
+

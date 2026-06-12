@@ -1,45 +1,72 @@
-name: CI/CD Pipeline
+﻿name: CI/CD Pipeline
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches:
+      
+main
+pull_request:
+  branches:
+main
+
+permissions:
+  contents: read
 
 jobs:
   lint_and_build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v4
+      
+name: Checkout do codigo
+      uses: actions/checkout@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'
-          bundler-cache: true
-
-      # Etapa de Lint (exemplo verificando a sintaxe dos arquivos markdown/html)
-      - name: Linter / Static Analysis
+      
+name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: "3.2"
+        
+name: Instalar Dependências
         run: |
-          gem install rubocop
-          rubocop --require rubocop-jekyll || echo "Linting falhou ou precisa de ajustes"
+          bundle config set frozen false
+          bundle install
 
-      # Etapa de Build para garantir que compila
-      - name: Build do Site
-        run: bundle exec jekyll build
+      
+name: Analise estatica
+      run: bundle exec jekyll doctor
+
+      
+name: Configurar GitHub Pages
+      if: github.event_name == 'push'
+      uses: actions/configure-pages@v5
+
+      
+name: Build do site
+      run: bundle exec jekyll build --trace
+
+      
+name: Enviar artefato do GitHub Pages
+      if: github.event_name == 'push'
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: ./_site
 
   deploy:
-    # O deploy só ocorre se for um merge/push na main e o build passar
+    if: github.event_name == 'push'
     needs: lint_and_build
-    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+
     permissions:
-      contents: write
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
-      - uses: actions/checkout@v4
-      - name: Deploy no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+      
+name: Publicar no GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
