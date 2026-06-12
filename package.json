@@ -1,0 +1,18 @@
+{
+  "name": "ds881-curriculo-grr20246205",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/requirements.test.mjs",
+    "lint:html": "htmlhint \"_layouts/**/*.html\" \"index.html\" \"404.html\"",
+    "lint:css": "stylelint \"assets/css/**/*.css\"",
+    "lint:markdown": "markdownlint-cli2 \"README.md\"",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:markdown && npm test"
+  },
+  "devDependencies": {
+    "htmlhint": "^1.7.1",
+    "markdownlint-cli2": "^0.18.1",
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^38.0.0"
+  }
+}
