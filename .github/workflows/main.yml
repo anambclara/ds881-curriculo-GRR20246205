@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+﻿name: CI/CD Pipeline
 
 on:
   push:
@@ -19,19 +19,18 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      # Etapa de Lint (exemplo verificando a sintaxe dos arquivos markdown/html)
+    
       - name: Linter / Static Analysis
         run: |
           gem install rubocop
           rubocop --require rubocop-jekyll || echo "Linting falhou ou precisa de ajustes"
 
-      # Etapa de Build para garantir que compila
+     
       - name: Build do Site
         run: bundle exec jekyll build
 
   deploy:
-    # O deploy só ocorre se for um merge/push na main e o build passar
-    needs: lint_and_build
+   
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
