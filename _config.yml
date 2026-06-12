@@ -1,4 +1,5 @@
-﻿title: Curriculo - Ana Clara Martins Batista
+
+title: Curriculo - Ana Clara Martins Batista
 email: anaclaramartinsbatista2006@gmail.com
 description: Curriculo profissional e portfolio de Ana Clara Martins Batista.
 baseurl: "/ds881-curriculo-GRR20246205"
@@ -9,6 +10,6 @@ source: src
 destination: _site
 
 theme: minima
-
 plugins:
-  - jekyll-feed
+  
+jekyll-feed
