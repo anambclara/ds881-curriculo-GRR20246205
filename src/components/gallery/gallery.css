@@ -1,0 +1,243 @@
+.media-gallery {
+  max-width: 72ch;
+  margin-top: clamp(2rem, 5vw, 4rem);
+  padding-top: 1.5rem;
+}
+
+.media-gallery__viewport {
+  overflow: hidden;
+}
+
+.media-gallery__container {
+  display: flex;
+  touch-action: pan-y pinch-zoom;
+}
+
+.media-gallery__slide {
+  min-width: 0;
+  flex: 0 0 100%;
+  margin: 0;
+  padding: 0 0.5rem;
+}
+
+.media-gallery__slide > .project-image-trigger,
+.media-gallery__slide > .project-artwork {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 2px solid var(--ink);
+  background: var(--paper-strong);
+}
+
+.project-image-trigger {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  color: inherit;
+  cursor: zoom-in;
+}
+
+.project-image-trigger > img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.project-image-trigger::after {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--ink);
+  background: var(--pin);
+  color: var(--ink);
+  content: '+';
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 3px 3px 0 var(--blue);
+}
+
+.project-image-trigger:hover > img {
+  filter: saturate(1.04) contrast(1.02);
+  transform: scale(1.012);
+}
+
+.project-image-trigger:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 4px;
+}
+
+.media-gallery__slide > .project-artwork {
+  object-fit: cover;
+}
+
+.project-lightbox {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  padding: clamp(1rem, 3vw, 2.5rem);
+  background: rgb(4 15 27 / 0.88);
+  backdrop-filter: blur(10px);
+  place-items: center;
+}
+
+.project-lightbox__figure {
+  width: fit-content;
+  max-width: min(92vw, 90rem);
+  max-height: 92dvh;
+  margin: 0;
+  padding: clamp(0.5rem, 1.2vw, 0.85rem);
+  overflow: hidden;
+  border: 2px solid var(--white);
+  background: var(--paper-strong);
+  box-shadow: 10px 10px 0 var(--blue);
+}
+
+.project-lightbox__figure > img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: calc(92dvh - 5.5rem);
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.project-lightbox__figure figcaption {
+  display: flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.65rem;
+  color: var(--blue-dark);
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.project-lightbox__figure figcaption button {
+  display: inline-grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  border: 2px solid var(--ink);
+  background: var(--pin);
+  color: var(--ink);
+  cursor: pointer;
+  place-items: center;
+}
+
+.project-lightbox__figure figcaption button:hover,
+.project-lightbox__figure figcaption button:focus-visible {
+  background: var(--blue);
+}
+
+.media-gallery__slide figcaption {
+  margin-top: 0.65rem;
+  color: var(--blue-dark);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.media-gallery__sr-description {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.media-gallery__controls {
+  display: flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.media-gallery__controls button,
+.media-gallery__thumbnails button {
+  display: inline-grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.media-gallery__controls button {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.media-gallery__controls button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.media-gallery__controls p {
+  min-width: 4rem;
+  margin: 0;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.media-gallery__thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(3.25rem, 1fr));
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.media-gallery__thumbnails button {
+  min-height: 3rem;
+  padding: 0.2rem;
+}
+
+.media-gallery__thumbnails button.is-selected {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.media-gallery__thumbnails img,
+.media-gallery__thumbnails .project-artwork {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  object-fit: cover;
+}
+
+@media (max-width: 559px) {
+  .project-image-trigger::after {
+    right: 0.5rem;
+    bottom: 0.5rem;
+  }
+
+  .project-lightbox {
+    padding: 0.75rem;
+  }
+
+  .project-lightbox__figure {
+    max-width: 100%;
+    box-shadow: 6px 6px 0 var(--blue);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-image-trigger > img {
+    transition: none;
+  }
+
+  .project-image-trigger:hover > img {
+    transform: none;
+  }
+}
