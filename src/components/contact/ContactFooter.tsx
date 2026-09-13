@@ -20,6 +20,9 @@ export function ContactFooter() {
           <div className="contact-footer__links">
             <ArrowLink href={`mailto:${profile.email}`}>Enviar e-mail</ArrowLink>
             <ArrowLink href={profile.linkedin} external>LinkedIn</ArrowLink>
+            <ArrowLink href={profile.portfolioRepository} external>
+              Repositório do portfólio
+            </ArrowLink>
           </div>
         </section>
       </div>

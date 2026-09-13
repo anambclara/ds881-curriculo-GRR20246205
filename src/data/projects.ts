@@ -22,7 +22,12 @@ export const projects: Project[] = [
         height: 712,
       },
     ],
-    links: [],
+    links: [
+      {
+        label: 'Ver repositório',
+        href: 'https://github.com/anambclara/TrabWeb1',
+      },
+    ],
     visual: 'typing',
   },
   {
@@ -70,7 +75,12 @@ export const projects: Project[] = [
         height: 712,
       },
     ],
-    links: [],
+    links: [
+      {
+        label: 'Ver repositório',
+        href: 'https://github.com/ds881-2026-alexkutzke/ds881-devmarket-2026-1-t',
+      },
+    ],
     visual: 'ecomp',
   },
   {

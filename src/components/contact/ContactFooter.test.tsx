@@ -23,6 +23,10 @@ describe('ContactFooter', () => {
       'href',
       'https://www.linkedin.com/in/ana-clara-batista-4627a3327/',
     )
+    expect(screen.getByRole('link', { name: /repositório do portfólio/i })).toHaveAttribute(
+      'href',
+      'https://github.com/anambclara/ds881-curriculo-GRR20246205',
+    )
     const portrait = screen.getByRole('img', { name: /ana clara/i })
     expect(portrait).toHaveAttribute('src', '/images/ana/ana-contact.svg')
     expect(portrait).toHaveAttribute('loading', 'lazy')

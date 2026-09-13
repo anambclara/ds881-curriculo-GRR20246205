@@ -62,6 +62,22 @@ describe('ProjectsBoard', () => {
     expect(screen.queryByRole('heading', { name: 'Comunicação na Ecomp' })).not.toBeInTheDocument()
   })
 
+  it('links the typing game and DevMarket to their repositories', () => {
+    render(<ProjectsBoard />)
+
+    const typingProject = screen.getByRole('article', { name: 'Jogo de digitação' })
+    const devMarket = screen.getByRole('article', { name: 'e-commerce DevMarket' })
+
+    expect(within(typingProject).getByRole('link', { name: /ver repositório/i })).toHaveAttribute(
+      'href',
+      'https://github.com/anambclara/TrabWeb1',
+    )
+    expect(within(devMarket).getByRole('link', { name: /ver repositório/i })).toHaveAttribute(
+      'href',
+      'https://github.com/ds881-2026-alexkutzke/ds881-devmarket-2026-1-t',
+    )
+  })
+
   it('reserves a replaceable photo area for projects awaiting images', () => {
     render(<ProjectsBoard />)
 
