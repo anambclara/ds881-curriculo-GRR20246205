@@ -1,178 +1,106 @@
-# Currículo Online - DS881
+# Portfólio Ana Clara
 
-[![CI/CD](https://github.com/anambclara/ds881-curriculo-GRR20246205/actions/workflows/main.yml/badge.svg)](https://github.com/anambclara/ds881-curriculo-GRR20246205/actions/workflows/main.yml)
+Portfólio responsivo de Ana Clara, construído com React, TypeScript, Vite e Motion. A interface usa uma linguagem editorial de colagem, com projetos completos e orientados por dados no fluxo da própria página.
 
-Currículo profissional desenvolvido como projeto individual da disciplina
-DS881. O site usa Jekyll, possui ambiente de desenvolvimento conteinerizado e
-é publicado automaticamente no GitHub Pages.
+## Como executar
 
-**Produção:** [anambclara.github.io/ds881-curriculo-GRR20246205](https://anambclara.github.io/ds881-curriculo-GRR20246205/)
-
-## Tecnologias
-
-- Jekyll 4 e Ruby
-- HTML e CSS
-- Docker e Docker Compose
-- GitHub Actions
-- GitHub Pages
-- HTMLHint, Stylelint e Markdownlint
-
-## Executar localmente com Docker
-
-É necessário instalar somente o
-[Docker Desktop](https://www.docker.com/products/docker-desktop/). Ruby,
-Bundler, Jekyll e Node.js são instalados dentro da imagem.
-
-1. Clone o repositório:
-
-   ```bash
-   git clone https://github.com/anambclara/ds881-curriculo-GRR20246205.git
-   cd ds881-curriculo-GRR20246205
-   ```
-
-2. Construa a imagem e inicie o servidor:
-
-   ```bash
-   docker compose up --build
-   ```
-
-3. Acesse [http://localhost:8080](http://localhost:8080).
-
-O diretório do projeto é montado em `/srv/jekyll` dentro do contêiner. O
-Jekyll usa `--livereload` e `--force_polling`, portanto alterações nos arquivos
-são refletidas automaticamente no navegador.
-
-Para encerrar, pressione `Ctrl+C`. Para remover o contêiner:
+Requisitos: Node.js 24 e pnpm 10 ou superior.
 
 ```bash
-docker compose down
+pnpm install
+pnpm dev
 ```
 
-## Verificações locais
-
-Todos os comandos podem ser executados sem instalar as dependências no sistema
-operacional:
+O Vite informa o endereço local no terminal. Para gerar e visualizar a versão de produção:
 
 ```bash
-# HTMLHint, Stylelint, Markdownlint e testes dos requisitos
-docker compose run --rm site npm run lint
-
-# Análise estática do Jekyll
-docker compose run --rm site bundle exec jekyll doctor
-
-# Build de produção
-docker compose run --rm site bundle exec jekyll build
+pnpm build
+pnpm preview
 ```
 
-## Pipeline CI/CD
+## Como editar o conteúdo
 
-O workflow [`.github/workflows/main.yml`](.github/workflows/main.yml) é
-executado em Pull Requests para `main` e em atualizações da própria `main`.
+- Perfil, contato e habilidades: `src/data/profile.ts`.
+- Projetos, descrição, texto principal, categorias, ferramentas, aprendizados, mídias e links: `src/data/projects.ts`.
+- Fotos da Ana e ícone da marca: `public/images/`.
+- Cores, tipografia e estilos globais: `src/styles/global.css`.
 
-### Linter / Static Analysis
+Para adicionar um projeto, duplique um objeto do array `projects` em `src/data/projects.ts`, defina um `slug` único e preencha seus campos. Cada case completo é gerado automaticamente em uma composição alternada de texto e mídia. Se o projeto usar imagens próprias, coloque WebP ou AVIF em `public/images/projects/<slug>/` e referencie o caminho no campo `media`.
 
-O job `lint` executa:
+Cada projeto aceita uma capa independente e quantas fotos extras forem necessárias. A capa aparece como destaque visual e os itens de `media` aparecem automaticamente no carrossel do próprio case. Se a capa também estiver em `media`, ela é removida do carrossel para não aparecer duas vezes:
 
-- HTMLHint nos arquivos HTML;
-- Stylelint no CSS;
-- Markdownlint no README;
-- testes automatizados dos requisitos de Docker, Jekyll e workflow;
-- `jekyll doctor` para análise estática da configuração.
-
-Qualquer erro encerra o job com falha. Não há comandos que ignorem o resultado
-dos linters.
-
-### Build
-
-O job `build` depende do sucesso de `lint`, gera o site com
-`bundle exec jekyll build` e envia `_site` como artefato oficial do GitHub
-Pages.
-
-### Deploy
-
-O job `deploy` depende do sucesso de `build` e executa somente após um `push`
-na branch `main`. A publicação usa as actions oficiais
-`actions/configure-pages`, `actions/upload-pages-artifact` e
-`actions/deploy-pages`.
-
-Em um Pull Request, somente `lint` e `build` são executados. O deploy ocorre
-depois do merge aprovado na `main`.
-
-## Fluxo de trabalho com Git
-
-Push direto na `main` não deve ser utilizado.
-
-1. Atualize a `main` e crie uma branch:
-
-   ```bash
-   git switch main
-   git pull
-   git switch -c feat/nome-da-alteracao
-   ```
-
-2. Faça commits seguindo
-   [Conventional Commits](https://www.conventionalcommits.org/):
-
-   ```bash
-   git commit -m "feat: adiciona nova seção ao currículo"
-   git commit -m "fix: corrige layout em telas pequenas"
-   git commit -m "docs: atualiza instruções de execução"
-   git commit -m "ci: ajusta validação do pipeline"
-   ```
-
-3. Envie a branch e abra um Pull Request:
-
-   ```bash
-   git push -u origin feat/nome-da-alteracao
-   ```
-
-4. Aguarde os jobs `Linter / Static Analysis` e `Build` ficarem verdes antes
-   de realizar o merge.
-
-## Configurar o GitHub Pages
-
-Esta configuração deve ser aplicada no GitHub após o workflow estar na
-`main`:
-
-1. Acesse `Settings` > `Pages`.
-2. Em `Build and deployment`, selecione `GitHub Actions` como fonte.
-3. Faça o merge de um Pull Request válido na `main`.
-4. Acompanhe o job `Deploy` na aba `Actions`.
-5. Confirme a publicação no link de produção informado no início deste README.
-
-## Proteção da branch `main`
-
-A proteção é uma configuração do repositório no GitHub e não pode ser definida
-somente por arquivos versionados.
-
-1. Acesse `Settings` > `Branches`.
-2. Em `Branch protection rules`, clique em `Add branch protection rule`.
-3. Em `Branch name pattern`, informe `main`.
-4. Marque `Require a pull request before merging`.
-5. Marque `Require status checks to pass before merging`.
-6. Marque `Require branches to be up to date before merging`.
-7. Selecione os checks `Linter / Static Analysis` e `Build`.
-8. Marque `Do not allow bypassing the above settings`, se a opção estiver
-   disponível.
-9. Salve em `Create` ou `Save changes`.
-
-### Evidência esperada
-
-Na tela da regra de proteção, a branch `main` deve aparecer com Pull Request
-obrigatório e com os checks `Linter / Static Analysis` e `Build` exigidos.
-O histórico do repositório também deve mostrar as alterações integradas por
-Pull Requests, sem push direto na `main`.
-
-## Estrutura principal
-
-```text
-.
-├── .github/workflows/main.yml
-├── _layouts/curriculum.html
-├── assets/css/style.css
-├── tests/requirements.test.mjs
-├── Dockerfile
-├── docker-compose.yml
-├── index.html
-└── README.md
+```ts
+{
+  // ...demais campos do projeto
+  cover: {
+    id: 'capa',
+    kind: 'image',
+    src: '/images/projects/meu-projeto/capa.webp',
+    alt: 'Descrição objetiva da capa.',
+    caption: 'Capa do projeto.',
+    width: 1600,
+    height: 900,
+  },
+  media: [
+    {
+      id: 'tela-inicial',
+      kind: 'image',
+      src: '/images/projects/meu-projeto/tela-inicial.webp',
+      alt: 'Descrição da tela inicial.',
+      caption: 'Tela inicial do projeto.',
+      width: 1600,
+      height: 900,
+    },
+    {
+      id: 'detalhe-mobile',
+      kind: 'image',
+      src: '/images/projects/meu-projeto/detalhe-mobile.webp',
+      alt: 'Descrição da versão mobile.',
+      caption: 'Detalhe da experiência no celular.',
+      width: 900,
+      height: 1600,
+    },
+  ],
+}
 ```
+
+Com duas ou mais mídias, a galeria exibe setas, contador, gestos de arraste e navegação pelo teclado. Com três ou mais, também aparecem miniaturas.
+
+## Componentes principais
+
+- `src/components/hero/`: apresentação, fotos em colagem e faixa de habilidades.
+- `src/components/projects/ProjectsBoard.tsx`: lista data-driven dos cases.
+- `src/components/projects/ProjectCase.tsx`: composição alternada de cada projeto.
+- `src/components/projects/ProjectMeta.tsx` e `ProjectNarrative.tsx`: categorias, ferramentas, texto principal e aprendizados.
+- `src/components/gallery/`: galeria reutilizável para fotos e imagens dos projetos.
+- `src/components/about/`, `contact/` e `layout/`: seções e estrutura geral da página.
+
+## Performance
+
+- Fotos em WebP transparente e dimensionadas para o tamanho real de exibição.
+- Lightbox leve para ampliar as imagens sem substituir ou recomprimir os arquivos originais.
+- Embla é carregado apenas pelas galerias que possuem múltiplas mídias.
+- Animações baseadas principalmente em `transform`, com suporte a `prefers-reduced-motion`.
+- Dimensões explícitas nas imagens para reduzir mudanças de layout.
+- `dist`, `node_modules`, caches e arquivos locais não fazem parte do repositório.
+
+## Deploy na Vercel
+
+O repositório está preparado para importação direta na Vercel com o preset do Vite. Ao importar o projeto, mantenha a raiz do repositório como `Root Directory`.
+
+- Build Command: `pnpm build`.
+- Output Directory: `dist`.
+- Node.js: 24.x.
+- Variáveis de ambiente: nenhuma obrigatória.
+
+O arquivo `vercel.json` registra essas opções no próprio repositório. A Vercel detecta o `pnpm-lock.yaml` e instala as dependências com pnpm automaticamente. A pasta local `.vercel` permanece ignorada para não versionar identificadores da conta ou do projeto.
+
+## Verificação
+
+```bash
+pnpm test
+pnpm lint
+pnpm build
+```
+
+O conteúdo do site é estático e não utiliza variáveis de ambiente, banco de dados ou serviços externos obrigatórios.

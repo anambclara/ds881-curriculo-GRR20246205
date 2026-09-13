@@ -1,0 +1,229 @@
+.hero-collage {
+  position: relative;
+  display: grid;
+  min-height: min(52rem, calc(100vh - 5rem));
+  padding: clamp(4rem, 9vw, 7rem) 0 3rem;
+  align-items: center;
+  grid-template-columns: minmax(16rem, 0.9fr) minmax(20rem, 1.1fr);
+  column-gap: clamp(1rem, 5vw, 5rem);
+}
+
+.hero-collage__content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-collage__eyebrow {
+  margin: 0 0 1rem;
+  color: var(--blue-dark);
+  font-family: 'Caveat', cursive;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+  font-weight: 600;
+}
+
+.hero-collage h1 {
+  max-width: 7ch;
+  font-size: clamp(4rem, 10vw, 8.6rem);
+}
+
+.hero-collage__role {
+  max-width: 31rem;
+  margin: 1.5rem 0 2rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.hero-collage__stage {
+  position: relative;
+  min-height: clamp(24rem, 46vw, 39rem);
+  isolation: isolate;
+}
+
+.hero-collage__portrait {
+  position: absolute;
+  z-index: 2;
+}
+
+.hero-collage__portrait--main {
+  top: 4%;
+  left: 12%;
+  width: clamp(13rem, 28vw, 23rem);
+}
+
+.hero-collage__portrait--standing {
+  right: 0;
+  bottom: 1%;
+  z-index: 3;
+  width: clamp(9rem, 18vw, 14rem);
+}
+
+.hero-collage__portrait--wink {
+  bottom: 15%;
+  left: 0;
+  z-index: 4;
+  width: clamp(7rem, 14vw, 11rem);
+}
+
+.sticker-portrait {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  filter: drop-shadow(8px 8px 0 var(--blue));
+}
+
+.sticker-portrait__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-collage__shape {
+  position: absolute;
+  pointer-events: none;
+}
+
+.hero-collage__shape--sun {
+  top: 5%;
+  right: 10%;
+  width: clamp(9rem, 18vw, 14rem);
+  aspect-ratio: 1;
+  border: 3px solid var(--ink);
+  background: var(--pin);
+  border-radius: 47% 53% 62% 38% / 55% 42% 58% 45%;
+  transform: rotate(12deg);
+}
+
+.hero-collage__shape--scribble {
+  right: 17%;
+  bottom: 4%;
+  color: var(--blue);
+  font-family: 'Caveat', cursive;
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: 700;
+  transform: rotate(-14deg);
+}
+
+.skills-ticker {
+  position: relative;
+  z-index: 5;
+  grid-column: 1 / -1;
+  left: 50%;
+  width: 100vw;
+  margin: 2rem 0 0;
+  overflow: hidden;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  background: var(--pin);
+  transform: translateX(-50%);
+}
+
+.skills-ticker__viewport {
+  overflow: hidden;
+}
+
+.skills-ticker__track {
+  display: flex;
+  width: max-content;
+  animation: skills-ticker 28s linear infinite;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.skills-ticker__track:hover,
+.skills-ticker__track:focus-within,
+.skills-ticker:focus-visible .skills-ticker__track,
+.skills-ticker:focus-within .skills-ticker__track {
+  animation-play-state: paused;
+}
+
+.skills-ticker ul {
+  display: flex;
+  flex-shrink: 0;
+  gap: 1.4rem;
+  min-width: max-content;
+  margin: 0;
+  padding: 0.85rem 1.4rem;
+  list-style: none;
+}
+
+.skills-ticker li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--ink);
+  font-family: 'Bricolage Grotesque', Impact, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.skills-ticker li span {
+  color: var(--blue);
+}
+
+@keyframes skills-ticker {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 719px) {
+  .hero-collage {
+    min-height: auto;
+    padding-top: 4.5rem;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-collage h1 {
+    max-width: 8ch;
+  }
+
+  .hero-collage__stage {
+    min-height: 25rem;
+    margin-top: 2rem;
+  }
+
+  .hero-collage__portrait--main {
+    left: 17%;
+    width: min(62vw, 18rem);
+  }
+
+  .hero-collage__portrait--standing {
+    right: 2%;
+    width: min(31vw, 10rem);
+  }
+
+  .hero-collage__portrait--wink {
+    left: 1%;
+    width: min(27vw, 8rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-ticker__track {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    transform: none;
+    will-change: auto;
+    animation: none;
+  }
+
+  .skills-ticker__track > ul[aria-hidden='true'] {
+    display: none;
+  }
+
+  .skills-ticker__track > ul:not([aria-hidden='true']) {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 100%;
+    flex-wrap: wrap;
+  }
+}

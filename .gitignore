@@ -1,6 +1,11 @@
-_site
-.sass-cache
-.jekyll-cache
-.jekyll-metadata
-vendor
-node_modules
+.worktrees/
+.superpowers/
+tmp/
+node_modules/
+dist/
+.vite/
+coverage/
+.vercel/
+.env*
+!.env.example
+*.log
